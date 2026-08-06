@@ -24,85 +24,230 @@
 
         header {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 25px;
             color: #d63384;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         header h1 {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            animation: pulseHeader 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseHeader {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
         }
 
         .main-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
-            width: 90%;
+            width: 95%;
             max-width: 1000px;
-            margin: 30px auto;
-            flex-wrap: wrap;
+            margin: 20px auto;
             gap: 20px;
+            position: relative;
         }
 
-        /* Tarjetas de Personajes */
+        /* Escena de Personajes con Cuerpo Completo */
         .character-card {
             background: rgba(255, 255, 255, 0.85);
-            padding: 20px;
+            padding: 20px 15px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            width: 220px;
+            width: 200px;
             backdrop-filter: blur(5px);
-            transition: transform 0.3s ease;
-        }
-
-        .character-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: #ffd1dc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 60px;
-            margin: 0 auto 15px;
-            border: 4px solid #ff69b4;
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
         }
 
         .character-name {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #880e4f;
             font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Diseño de Muñecos con Cuerpos */
+        .body-avatar {
+            width: 140px;
+            height: 180px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Muñeco Jorge */
+        .jorge-head {
+            width: 70px;
+            height: 70px;
+            background-color: #ffd8b5;
+            border-radius: 50%;
+            position: relative;
+            border: 3px solid #4a3525;
+            z-index: 3;
+        }
+        .jorge-hair {
+            position: absolute;
+            top: -6px;
+            left: -2px;
+            width: 74px;
+            height: 35px;
+            background-color: #4a3525;
+            border-radius: 40px 40px 0 0;
+        }
+        .jorge-body {
+            width: 60px;
+            height: 65px;
+            background-color: #42a5f5;
+            border-radius: 15px 15px 0 0;
+            margin-top: -5px;
+            position: relative;
+            border: 3px solid #1e88e5;
+        }
+        .jorge-legs {
+            width: 50px;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .jorge-leg {
+            width: 18px;
+            height: 40px;
+            background-color: #1565c0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Muñequita Angie */
+        .angie-head {
+            width: 70px;
+            height: 70px;
+            background-color: #ffe0bd;
+            border-radius: 50%;
+            position: relative;
+            border: 3px solid #5c3a21;
+            z-index: 3;
+        }
+        .angie-hair {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 86px;
+            height: 80px;
+            background-color: #5c3a21;
+            border-radius: 40px 40px 20px 20px;
+            z-index: -1;
+        }
+        .angie-body {
+            width: 65px;
+            height: 65px;
+            background-color: #ff6090;
+            border-radius: 20px 20px 0 0;
+            margin-top: -5px;
+            position: relative;
+            border: 3px solid #e91e63;
+        }
+        .angie-legs {
+            width: 45px;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .angie-leg {
+            width: 16px;
+            height: 40px;
+            background-color: #ffe0bd;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Ojos y Boca */
+        .face-eyes {
+            display: flex;
+            justify-content: space-around;
+            width: 36px;
+            margin: 25px auto 5px;
+        }
+        .eye {
+            width: 7px;
+            height: 7px;
+            background-color: #222;
+            border-radius: 50%;
+        }
+        .mouth {
+            width: 12px;
+            height: 6px;
+            border-bottom: 3px solid #222;
+            border-radius: 0 0 10px 10px;
+            margin: 0 auto;
+        }
+
+        /* ANIMACIÓN DE ABRAZO Y BESO */
+        .main-container.kissing .jorge-card {
+            transform: translateX(180px) rotate(8deg);
+            z-index: 5;
+        }
+
+        .main-container.kissing .angie-card {
+            transform: translateX(-180px) rotate(-8deg);
+            z-index: 5;
+        }
+
+        .kiss-heart {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 80px;
+            opacity: 0;
+            z-index: 100;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+
+        .main-container.kissing .kiss-heart {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 1;
+            animation: pulseKiss 0.8s infinite alternate;
+        }
+
+        @keyframes pulseKiss {
+            0% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1.5); }
         }
 
         /* Panel Central Interactivo */
         .interactive-panel {
             background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
+            padding: 25px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
             text-align: center;
-            max-width: 420px;
+            max-width: 380px;
             width: 100%;
             position: relative;
+            z-index: 1;
         }
 
         .counter-box {
             font-size: 3rem;
             color: #e91e63;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 5px 0;
+            transition: transform 0.15s ease-out;
         }
 
-        /* Caja de Mensajes Especiales */
+        .counter-pop {
+            transform: scale(1.3);
+        }
+
         .message-box {
-            min-height: 70px;
+            min-height: 65px;
             margin: 15px 0;
             padding: 10px;
             background-color: #fff0f5;
@@ -114,7 +259,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
         }
 
         .btn-love {
@@ -132,15 +276,15 @@
         }
 
         .btn-love:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
             box-shadow: 0 8px 20px rgba(255, 64, 129, 0.6);
         }
 
         .btn-love:active {
-            transform: scale(0.95);
+            transform: scale(0.90);
         }
 
-        /* Animación de Corazones Flotantes */
+        /* Corazones Flotantes */
         .floating-heart {
             position: fixed;
             font-size: 24px;
@@ -151,17 +295,11 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(0.8) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) scale(1.3) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.4) rotate(360deg); opacity: 0; }
         }
 
-        /* Estilos del Sticker de Celebración */
+        /* Sticker */
         .celebration-sticker {
             position: absolute;
             width: 140px;
@@ -176,7 +314,7 @@
         .celebration-sticker.show {
             transform: translateX(-50%) scale(1);
             opacity: 1;
-            top: -90px;
+            top: -95px;
         }
 
         .celebration-sticker img {
@@ -195,55 +333,84 @@
         <p>Jorge le envía todo su cariño a Angie</p>
     </header>
 
-    <div class="main-container">
-        <!-- Muñeco Jorge -->
-        <div class="character-card">
-            <div class="avatar">👦🏻</div>
+    <div class="main-container" id="sceneContainer">
+        <!-- Corazón gigante de beso -->
+        <div class="kiss-heart">👩‍❤️‍💋‍👨💋</div>
+
+        <!-- Muñeco Jorge con Cuerpo Completo -->
+        <div class="character-card jorge-card">
+            <div class="body-avatar">
+                <div class="jorge-head">
+                    <div class="jorge-hair"></div>
+                    <div class="face-eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="jorge-body"></div>
+                <div class="jorge-legs">
+                    <div class="jorge-leg"></div>
+                    <div class="jorge-leg"></div>
+                </div>
+            </div>
             <div class="character-name">Jorge</div>
-            <p style="color: #666; margin-top: 5px;">El emisor de amor</p>
         </div>
 
         <!-- Panel Interactivo Central -->
         <div class="interactive-panel">
-            <!-- Sticker de Celebración -->
             <div class="celebration-sticker" id="celebrationSticker">
-                <img src="image.png" alt="Sticker de Celebración" id="stickerImage">
+                <img src="image.png" alt="Sticker" id="stickerImage">
             </div>
 
             <h2>Corazones Enviados</h2>
             <div class="counter-box" id="heartCounter">0</div>
             
-            <!-- Caja de Mensajes Especiales -->
             <div class="message-box" id="specialMessage">¡Sigue presionando para ver mensajes! ✨</div>
 
             <button class="btn-love" onclick="sendHeart()">¡Enviar Corazón a Angie! 💖</button>
         </div>
 
-        <!-- Muñequita Angie -->
-        <div class="character-card">
-            <div class="avatar">👧🏻</div>
+        <!-- Muñequita Angie con Cuerpo Completo -->
+        <div class="character-card angie-card">
+            <div class="body-avatar">
+                <div class="angie-head">
+                    <div class="angie-hair"></div>
+                    <div class="face-eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="angie-body"></div>
+                <div class="angie-legs">
+                    <div class="angie-leg"></div>
+                    <div class="angie-leg"></div>
+                </div>
+            </div>
             <div class="character-name">Angie</div>
-            <p style="color: #666; margin-top: 5px;">La receptora feliz</p>
         </div>
     </div>
 
     <script>
         let count = 0;
 
-        // Lista de mensajes bonitos intermedios
         const beautifulMessages = [
             "Eres el sol que ilumina mis días ☀️",
             "Cada corazón es un pedacito de mi amor por ti 💖",
             "Angie, eres la persona más dulce que conozco 🌸",
             "Eres el motivo de mis sonrisas 😊",
             "Me haces el Jorge más feliz del mundo 🥰",
-            "Adoro todo de ti, Angie ✨",
-            "Cada momento contigo es un regalo 🎁"
+            "Adoro todo de ti, Angie ✨"
         ];
 
         function sendHeart() {
             count++;
-            document.getElementById('heartCounter').innerText = count;
+            
+            const counterElement = document.getElementById('heartCounter');
+            counterElement.innerText = count;
+            counterElement.classList.add('counter-pop');
+            setTimeout(() => counterElement.classList.remove('counter-pop'), 150);
 
             checkMessagesAndSticker();
             createHeart();
@@ -252,7 +419,12 @@
         function checkMessagesAndSticker() {
             const messageElement = document.getElementById('specialMessage');
 
-            // Mensajes exactos pedidos
+            // Abrazo y Beso cada 20 corazones
+            if (count % 20 === 0 && count > 0) {
+                triggerKiss();
+            }
+
+            // Mensajes según la cantidad de corazones
             if (count === 10) {
                 messageElement.innerText = "bien hecho pompurrina";
                 triggerSticker();
@@ -269,19 +441,30 @@
                 messageElement.innerText = `¡Increíble Angie! ¡Ya van ${count} corazones! ❤️`;
                 triggerSticker();
             } else if (count % 5 === 0) {
-                // Muestra un mensaje bonito cada 5 clics intermedios
                 const randomIndex = Math.floor(Math.random() * beautifulMessages.length);
                 messageElement.innerText = beautifulMessages[randomIndex];
             }
         }
 
+        function triggerKiss() {
+            const scene = document.getElementById('sceneContainer');
+            scene.classList.add('kissing');
+
+            // Crear lluvia intensa de corazones durante el beso
+            for(let i = 0; i < 15; i++) {
+                setTimeout(createHeart, i * 150);
+            }
+
+            // Volver a la posición normal después de 3.5 segundos
+            setTimeout(() => {
+                scene.classList.remove('kissing');
+            }, 3500);
+        }
+
         function triggerSticker() {
             const stickerElement = document.getElementById('celebrationSticker');
-            
-            // Muestra el sticker con la animación
             stickerElement.classList.add('show');
 
-            // Oculta el sticker después de 3 segundos
             setTimeout(() => {
                 stickerElement.classList.remove('show');
             }, 3000);
@@ -291,7 +474,7 @@
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
             
-            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘'];
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💋'];
             heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
             
             heart.style.left = Math.random() * 80 + 10 + 'vw';
@@ -307,11 +490,14 @@
             }, 3000);
         }
 
-        // Genera corazones flotantes de fondo
         setInterval(() => {
             if (Math.random() > 0.5) {
                 createHeart();
             }
+        }, 1500);
+    </script>
+</body>
+</html>
         }, 1500);
     </script>
 </body>
