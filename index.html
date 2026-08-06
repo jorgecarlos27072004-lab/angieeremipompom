@@ -90,7 +90,7 @@
             text-align: center;
             max-width: 420px;
             width: 100%;
-            position: relative; /* Para el sticker flotante */
+            position: relative;
         }
 
         .counter-box {
@@ -102,7 +102,7 @@
 
         /* Caja de Mensajes Especiales */
         .message-box {
-            min-height: 70px; /* Un poco más alta para mensajes más largos */
+            min-height: 70px;
             margin: 15px 0;
             padding: 10px;
             background-color: #fff0f5;
@@ -164,29 +164,27 @@
         /* Estilos del Sticker de Celebración */
         .celebration-sticker {
             position: absolute;
-            width: 100px;
-            height: 100px;
-            top: -50px; /* Flotando sobre el panel */
+            width: 140px;
+            top: -70px;
             left: 50%;
             transform: translateX(-50%) scale(0);
             opacity: 0;
-            transition: all 0.5s ease-out;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10;
         }
 
         .celebration-sticker.show {
             transform: translateX(-50%) scale(1);
             opacity: 1;
-            top: -70px;
+            top: -90px;
         }
 
-        /* Imágenes de Sticker (reemplazar con tus rutas de imagen) */
-        /* Nota: Necesitarás estas imágenes en tu repositorio para que funcionen */
         .celebration-sticker img {
             width: 100%;
             height: auto;
-            border-radius: 10px; /* Un poco de borde */
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
         }
     </style>
 </head>
@@ -207,11 +205,9 @@
 
         <!-- Panel Interactivo Central -->
         <div class="interactive-panel">
-            <!-- Sticker de Celebración (inicialmente oculto) -->
+            <!-- Sticker de Celebración -->
             <div class="celebration-sticker" id="celebrationSticker">
-                <!-- Reemplazar 'pompurrin.png' con tu imagen real de Pompompurrin con sombrero -->
-                <img src="https://raw.githubusercontent.com/google-gemini/generative-ai-python/main/docs/api_reference/source/images/gemini-pro.png" alt="Sticker de Celebración" id="stickerImage"> 
-                <!-- ^^^ NOTA IMPORTANTE: Esta es una imagen de marcador de posición. Tienes que cambiar la URL. ^^^ -->
+                <img src="image.png" alt="Sticker de Celebración" id="stickerImage">
             </div>
 
             <h2>Corazones Enviados</h2>
@@ -233,116 +229,89 @@
 
     <script>
         let count = 0;
-        let lastCelebrationHeartCount = 0;
 
-        // Lista de mensajes bonitos para cada +10 corazones
+        // Lista de mensajes bonitos intermedios
         const beautifulMessages = [
-            "Eres el sol que ilumina mis días.",
-            "Cada corazón es un pedacito de mi amor por ti.",
-            "Angie, eres la persona más dulce que conozco.",
-            "Eres el motivo de mis sonrisas.",
-            "Me haces el Jorge más feliz del mundo.",
-            "Adoro cómo eres, Angie.",
-            "Cada momento contigo es un regalo."
+            "Eres el sol que ilumina mis días ☀️",
+            "Cada corazón es un pedacito de mi amor por ti 💖",
+            "Angie, eres la persona más dulce que conozco 🌸",
+            "Eres el motivo de mis sonrisas 😊",
+            "Me haces el Jorge más feliz del mundo 🥰",
+            "Adoro todo de ti, Angie ✨",
+            "Cada momento contigo es un regalo 🎁"
         ];
-
-        // Lista de imágenes de stickers (de la imagen original que diste)
-        // Necesitas subir estas imágenes individuales a tu GitHub y cambiar las URLs
-        const stickerImages = [
-            "https://raw.githubusercontent.com/google-gemini/generative-ai-python/main/docs/api_reference/source/images/gemini-pro.png", // Pompompurrin con sombrero (imagen 1)
-            "https://raw.githubusercontent.com/google-gemini/generative-ai-python/main/docs/api_reference/source/images/gemini-pro.png", // Ratoncito amarillo (imagen 2)
-            "https://raw.githubusercontent.com/google-gemini/generative-ai-python/main/docs/api_reference/source/images/gemini-pro.png"  // Hámster blanco (imagen 3)
-        ];
-        // ^^^ NOTA IMPORTANTE: Estas son imágenes de marcador de posición. Tienes que cambiar las URLs a tus imágenes reales. ^^^
 
         function sendHeart() {
-            // Incrementar contador
             count++;
             document.getElementById('heartCounter').innerText = count;
 
-            // Lógica de stickers y mensajes cada 10 corazones
-            if (count % 10 === 0 && count > 0) {
-                showCelebration();
-            } else if (count > lastCelebrationHeartCount + 10) {
-                // Mensajes bonitos cada +10 corazones (entre celebraciones)
-                showBeautifulMessage();
-            }
-
-            // Crear corazón animado flotante
+            checkMessagesAndSticker();
             createHeart();
         }
 
-        function showCelebration() {
-            const stickerElement = document.getElementById('celebrationSticker');
-            const stickerImage = document.getElementById('stickerImage');
+        function checkMessagesAndSticker() {
             const messageElement = document.getElementById('specialMessage');
 
-            // 1. Mostrar un sticker aleatorio
-            const randomStickerIndex = Math.floor(Math.random() * stickerImages.length);
-            stickerImage.src = stickerImages[randomStickerIndex];
-            stickerElement.classList.add('show');
-
-            // 2. Mostrar un mensaje especial
+            // Mensajes exactos pedidos
             if (count === 10) {
-                messageElement.innerText = "¡Bien hecho pompurrina! ¡Primer hito!";
+                messageElement.innerText = "bien hecho pompurrina";
+                triggerSticker();
             } else if (count === 20) {
                 messageElement.innerText = "Mu bien muchacha merece do bolita owo";
+                triggerSticker();
             } else if (count === 30) {
-                messageElement.innerText = "Awww mi bb, yo tambien te amo mucho";
+                messageElement.innerText = "awww mi bb, yo tambien te amo mucho";
+                triggerSticker();
             } else if (count === 40) {
-                messageElement.innerText = "Casemonos :3";
-            } else {
-                // Mensaje genérico para celebraciones posteriores
-                messageElement.innerText = `¡Increíble, Angie! ¡${count} corazones!`;
+                messageElement.innerText = "casemonos :3";
+                triggerSticker();
+            } else if (count % 10 === 0 && count > 40) {
+                messageElement.innerText = `¡Increíble Angie! ¡Ya van ${count} corazones! ❤️`;
+                triggerSticker();
+            } else if (count % 5 === 0) {
+                // Muestra un mensaje bonito cada 5 clics intermedios
+                const randomIndex = Math.floor(Math.random() * beautifulMessages.length);
+                messageElement.innerText = beautifulMessages[randomIndex];
             }
-
-            lastCelebrationHeartCount = count; // Guardar el hito
-
-            // Ocultar el sticker después de un tiempo
-            setTimeout(() => {
-                stickerElement.classList.remove('show');
-            }, 2500); // 2.5 segundos
         }
 
-        function showBeautifulMessage() {
-            const messageElement = document.getElementById('specialMessage');
-            const randomMessageIndex = Math.floor(Math.random() * beautifulMessages.length);
-            messageElement.innerText = beautifulMessages[randomMessageIndex];
+        function triggerSticker() {
+            const stickerElement = document.getElementById('celebrationSticker');
+            
+            // Muestra el sticker con la animación
+            stickerElement.classList.add('show');
+
+            // Oculta el sticker después de 3 segundos
+            setTimeout(() => {
+                stickerElement.classList.remove('show');
+            }, 3000);
         }
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
             
-            // Variedad de emojis de corazón
             const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘'];
             heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
             
-            // Posición horizontal aleatoria
             heart.style.left = Math.random() * 80 + 10 + 'vw';
             heart.style.bottom = '0px';
             
-            // Tamaño aleatorio
             const size = Math.random() * 20 + 20;
             heart.style.fontSize = size + 'px';
 
             document.body.appendChild(heart);
 
-            // Eliminar de la memoria cuando termine la animación
             setTimeout(() => {
                 heart.remove();
             }, 3000);
         }
 
-        // Generar algunos corazones flotantes de fondo automáticamente
+        // Genera corazones flotantes de fondo
         setInterval(() => {
             if (Math.random() > 0.5) {
                 createHeart();
             }
-        }, 1500);
-    </script>
-</body>
-</html>
         }, 1500);
     </script>
 </body>
