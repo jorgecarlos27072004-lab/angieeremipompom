@@ -1,1 +1,221 @@
-holaa gaaaa
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazones para Angie</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 30px;
+            color: #d63384;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Tarjetas de Personajes */
+        .character-card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 220px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ffd1dc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            margin: 0 auto 15px;
+            border: 4px solid #ff69b4;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .character-name {
+            font-size: 1.5rem;
+            color: #880e4f;
+            font-weight: bold;
+        }
+
+        /* Panel Central Interactiva */
+        .interactive-panel {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .counter-box {
+            font-size: 3rem;
+            color: #e91e63;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .btn-love {
+            background: linear-gradient(45deg, #ff4081, #ff80ab);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .btn-love:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.6);
+        }
+
+        .btn-love:active {
+            transform: scale(0.95);
+        }
+
+        /* Animación de Corazones Flotantes */
+        .floating-heart {
+            position: fixed;
+            font-size: 24px;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 3s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.8) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>¡Muchos Corazones! ❤️</h1>
+        <p>Jorge le envía todo su cariño a Angie</p>
+    </header>
+
+    <div class="main-container">
+        <!-- Muñeco Jorge -->
+        <div class="character-card">
+            <div class="avatar">👦🏻</div>
+            <div class="character-name">Jorge</div>
+            <p style="color: #666; margin-top: 5px;">El emisor de amor</p>
+        </div>
+
+        <!-- Panel Interactivo Central -->
+        <div class="interactive-panel">
+            <h2>Corazones Enviados</h2>
+            <div class="counter-box" id="heartCounter">0</div>
+            <button class="btn-love" onclick="sendHeart()">¡Enviar Corazón a Angie! 💖</button>
+        </div>
+
+        <!-- Muñequita Angie -->
+        <div class="character-card">
+            <div class="avatar">👧🏻</div>
+            <div class="character-name">Angie</div>
+            <p style="color: #666; margin-top: 5px;">La receptora feliz</p>
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+
+        function sendHeart() {
+            // Incrementar contador
+            count++;
+            document.getElementById('heartCounter').innerText = count;
+
+            // Crear corazón animado flotante
+            createHeart();
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            // Variedad de emojis de corazón
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘'];
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            // Posición horizontal aleatoria
+            heart.style.left = Math.random() * 80 + 10 + 'vw';
+            heart.style.bottom = '0px';
+            
+            // Tamaño aleatorio
+            const size = Math.random() * 20 + 20;
+            heart.style.fontSize = size + 'px';
+
+            document.body.appendChild(heart);
+
+            // Eliminar de la memoria cuando termine la animación
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // Generar algunos corazones flotantes de fondo automáticamente
+        setInterval(() => {
+            if (Math.random() > 0.5) {
+                createHeart();
+            }
+        }, 1500);
+    </script>
+</body>
+</html>
