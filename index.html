@@ -40,7 +40,7 @@
             align-items: center;
             width: 90%;
             max-width: 1000px;
-            margin: 40px auto;
+            margin: 30px auto;
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -81,14 +81,14 @@
             font-weight: bold;
         }
 
-        /* Panel Central Interactiva */
+        /* Panel Central Interactivo */
         .interactive-panel {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
             text-align: center;
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
         }
 
@@ -96,7 +96,24 @@
             font-size: 3rem;
             color: #e91e63;
             font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* Caja de Mensajes Especiales */
+        .message-box {
+            min-height: 50px;
             margin: 15px 0;
+            padding: 10px;
+            background-color: #fff0f5;
+            border-radius: 15px;
+            border: 2px dashed #ff69b4;
+            color: #c2185b;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .btn-love {
@@ -163,6 +180,10 @@
         <div class="interactive-panel">
             <h2>Corazones Enviados</h2>
             <div class="counter-box" id="heartCounter">0</div>
+            
+            <!-- Aquí aparecen tus mensajes -->
+            <div class="message-box" id="specialMessage">¡Sigue presionando para ver mensajes! ✨</div>
+
             <button class="btn-love" onclick="sendHeart()">¡Enviar Corazón a Angie! 💖</button>
         </div>
 
@@ -182,8 +203,25 @@
             count++;
             document.getElementById('heartCounter').innerText = count;
 
+            // Actualizar mensajes según el número de corazones
+            checkMessages();
+
             // Crear corazón animado flotante
             createHeart();
+        }
+
+        function checkMessages() {
+            const messageElement = document.getElementById('specialMessage');
+
+            if (count === 10) {
+                messageElement.innerText = "bien hecho pompurrina";
+            } else if (count === 20) {
+                messageElement.innerText = "Mu bien muchacha merece do bolita owo";
+            } else if (count === 30) {
+                messageElement.innerText = "awww mi bb, yo tambien te amo mucho";
+            } else if (count === 40) {
+                messageElement.innerText = "casemonos :3";
+            }
         }
 
         function createHeart() {
